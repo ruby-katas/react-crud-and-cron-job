@@ -20,6 +20,9 @@ CourseUsers
 - user_id
 - course_id
 
+CourseBooks
+_ course_id
+- book_id
 
 Book
 ---
