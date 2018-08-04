@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  readingTime: 1
+  book: one
+  user: one
+
+two:
+  readingTime: 1
+  book: two
+  user: two
