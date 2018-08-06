@@ -12,7 +12,7 @@ class CourseMain extends React.Component {
         super(props);
         this.state = {
           course: {},
-          instructor: {}
+          students: []
         };
     }
 
@@ -20,17 +20,19 @@ class CourseMain extends React.Component {
         fetch('/api/v1/courses/index.json')
             .then((response) => {return response.json()})
             .then((data) => {
-                this.setState({ course: data });
-                this.setState({ instructor: data.instructor });
-                // console.log(this.state.instructor);
+                this.setState({
+                    course: { name: data.name, instructor: data.instructor.name, book: data.book.title} ,
+                    students: data.students
+                });
+                // console.log(JSON.stringify(this.state.students,null,2));
             });
     }
 
     render(){
         return(
             <div>
-                <CourseInfo course={this.state.course} instructor={this.state.instructor} />
-                <Students  />
+                <CourseInfo course={this.state.course} />
+                <Students students={this.state.students}/>
             </div>
         )
     }

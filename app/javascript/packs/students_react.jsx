@@ -1,13 +1,24 @@
 import React from "react";
 
-class Students extends React.Component {
-  render(){
-    return(
-      <div>
-        <h1>To do: List of students</h1>
-      </div>
-      )
-    }
-  }
+const Students = (props) => {
+  console.log('props   p3t', props)
 
-  export default Students;
+  var students = props.students.map((student) => {
+    return(
+      <div id={"student-" + student.id} class="row">
+        <div>{student.name}</div>
+        <div>{student.email}</div>
+        <div>{student.reading_time}</div>
+      </div>
+    )
+  })
+
+  var students
+
+  return(
+    <div>{students}</div>
+  )
+
+};
+
+export default Students;
