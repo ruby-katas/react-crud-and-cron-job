@@ -1,5 +1,5 @@
 class Api::V1::CoursesController < ApplicationController
   def index
-    render json: Course.all
+    @course = Course.first
   end
 end
