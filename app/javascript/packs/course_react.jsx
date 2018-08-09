@@ -26,14 +26,27 @@ class CourseMain extends React.Component {
             headers: {
             'Content-Type': 'application/json'
         }
-        }).then((response) => {
-            this.updateStudent(student)
         })
+        .then((response) => {
+            if(response.ok) {
+                this.updateStudent(student)
+            } else {
+                // TODO show warning/info message on UI
+                console.log('update was not successfull. ', response.statusText);
+            }
+        })
+        .catch(function(error) {
+            console.log('There were an issue with the request: ' + error.message);
+        });
     }
 
     updateStudent(student){
-        let newStudents = this.state.students.filter((f) => f.id !== student.id)
-        newStudents.push(student)
+        let studentUnsaved;
+        let newStudents = this.state.students.filter((f) => {
+            if (f.id === student.id) studentUnsaved = f;
+            return f.id !== student.id
+        })
+        newStudents.push(Object.assign({}, student, studentUnsaved))
         this.setState({
             students: newStudents
         })
