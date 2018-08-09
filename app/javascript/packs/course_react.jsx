@@ -14,6 +14,29 @@ class CourseMain extends React.Component {
           course: {},
           students: []
         };
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.updateStudent = this.updateStudent.bind(this)
+    }
+
+    handleUpdate(student){
+        fetch(`http://localhost:3000/api/v1/users/${student.id}`,
+        {
+            method: 'PUT',
+            body: JSON.stringify({student: student}),
+            headers: {
+            'Content-Type': 'application/json'
+        }
+        }).then((response) => {
+            this.updateStudent(student)
+        })
+    }
+
+    updateStudent(student){
+        let newStudents = this.state.students.filter((f) => f.id !== student.id)
+        newStudents.push(student)
+        this.setState({
+            students: newStudents
+        })
     }
 
     componentDidMount() {
@@ -32,7 +55,7 @@ class CourseMain extends React.Component {
         return(
             <div>
                 <CourseInfo course={this.state.course} />
-                <Students students={this.state.students}/>
+                <Students students={this.state.students} handleUpdate = {this.handleUpdate} />
             </div>
         )
     }
