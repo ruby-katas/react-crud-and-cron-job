@@ -15,7 +15,7 @@ You will be solving a simplified version of this problem by creating a simple on
 1. Connect a local git instance to this repo and create a new branch for commiting your code and eventually submitting with a Pull Request.
 2. Create a new Rails application and install any Gems you'd like to get started. *Note: panOpen uses Postgresql for its database, but feel free to use whichever SQL framework you're most comfortable with.*
 3. To simulate a simplified version of panOpen's course scenario, you will need the following available in the database with these properties (how you handle organizing or associating these tables/objects is up to you):
-   * User - should have a name, email, and role (student or instructor). Whether you'd like the role be its own table or not is up to your descrection. 
+   * User - should have a name, email, and role (student or instructor). Whether you'd like the role be its own table or not is up to your descrection.
    * Course - should have a name. Each user should also belong to a course (just like an instructor runs the course and has many students).
    * Book - should have a title and some content (i.e. some kind of dummy text that would simulate reading a book). *Note: you will not need to be able to read the content for this assignment.*
    * ReadingTime - should contain an amount a given user has read a book. Students should have reading times.
@@ -30,3 +30,33 @@ You should spend 3-6 hours completing this task and submitting a pull request. I
 *Note: We encourage TDD, but do not require it. Do what you feel comfortable with.*
 
 Please contact Roger (rblancarte@panopen.com) if you have any questions at all about the assignment.
+
+Environment Setup
+=================
+
+```bash
+# install ruby deps
+bundle install
+
+# create db, establish schema, and populate the seed data
+rake db:migrate
+rake db:seed
+```
+
+Load the app by running `rails server` on the command line and visiting `localhost:3000` in your browser.
+
+### How to review the application
+
+- When visiting the root page, the course info is displayed (Course name, instructor, the first couse book and the student list).
+
+- Students table shows a list of course users. The name, email and the book reading time are displayed
+
+- Edit button allow update the user name. Current email user must be entered (which is a kind of validation). A console log is written in the console log when the update fails. A message in the application would have been better, but is missing.
+
+- There a cron job for populating the database, it is shcheduled to run once a week.
+
+For including this cronjob in the server crontab file, you'll need to do this in order for your jobs to execute:
+
+```sh
+$ whenever --update-crontab
+```
