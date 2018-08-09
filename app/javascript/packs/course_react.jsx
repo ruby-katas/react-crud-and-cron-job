@@ -22,7 +22,7 @@ class CourseMain extends React.Component {
         fetch(`http://localhost:3000/api/v1/users/${student.id}`,
         {
             method: 'PUT',
-            body: JSON.stringify({student: student}),
+            body: JSON.stringify({user: student}),
             headers: {
             'Content-Type': 'application/json'
         }
